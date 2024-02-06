@@ -14,7 +14,6 @@ access(all) fun main(user:Address): String{
     let collectionData = ExampleNFT.resolveContractView(resourceType: nil, viewType: Type<MetadataViews.NFTCollectionData>()) as! MetadataViews.NFTCollectionData? ?? panic("ViewResolver does not resolve NFTCollectionData view")
 
     let collection <- UniversalCollection.createEmptyCollection(identifier: "foo", type: ExampleNFT.getType())
-    //if we save something here it will not work
     signer.storage.save(<- collection, to:collectionData.storagePath)
 
 

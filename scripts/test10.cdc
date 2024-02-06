@@ -1,4 +1,4 @@
-/// This transaction is what an account would run
+// This transaction is what an account would run
 /// to set itself up to receive NFTs
 
 import "NonFungibleToken"
@@ -11,20 +11,18 @@ access(all) fun main(user:Address): [String]{
 
     let messages : [String]=[]
 
-    let signer = getAuthAccount<auth(BorrowValue, IssueStorageCapabilityController, PublishCapability, SaveValue, UnpublishCapability) &Account>(user)
+    let signer = getAuthAccount<auth(BorrowValue, IssueStorageCapabilityController, PublishCapability, SaveValue, UnpublishCapability, LoadValue) &Account>(user)
 
     let collectionData = ExampleNFT.resolveContractView(resourceType: nil, viewType: Type<MetadataViews.NFTCollectionData>()) as! MetadataViews.NFTCollectionData? ?? panic("ViewResolver does not resolve NFTCollectionData view")
 
     let collection <- UniversalCollection.createEmptyCollection(identifier: "foo", type: ExampleNFT.getType())
     signer.storage.save(<- collection, to:collectionData.storagePath)
 
-    // Return early if the account already has a collection
-    let storedType =signer.storage.type(at: collectionData.storagePath)!
-    if storedType.isSubtype(of: Type<@{NonFungibleToken.Collection}>()) {
-        messages.append("is nft collection")
+
+    let col= signer.storage.borrow<&AnyResource>(from: collectionData.storagePath) as? &{NonFungibleToken.Collection}?
+    if col != nil {
+        messages.append("borrow using anyResource and then cast as restricted type")
     }
-
-
     return messages
 
 }

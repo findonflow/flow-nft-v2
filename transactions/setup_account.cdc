@@ -13,8 +13,6 @@ transaction {
         let collectionData = ExampleNFT.resolveContractView(resourceType: nil, viewType: Type<MetadataViews.NFTCollectionData>()) as! MetadataViews.NFTCollectionData?
         ?? panic("ViewResolver does not resolve NFTCollectionData view")
 
-        signer.storage.save("foo", to:collectionData.storagePath)
-
         // Return early if the account already has a collection
         if signer.storage.borrow<&ExampleNFT.Collection>(from: collectionData.storagePath) != nil {
             return

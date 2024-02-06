@@ -1,13 +1,15 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/bjartek/overflow"
 )
 
 func main() {
-	o := overflow.Overflow(overflow.WithReturnErrors())
+	o := overflow.Overflow(overflow.WithReturnErrors(), overflow.WithLogFull())
+
+	o.Tx("test_init", overflow.WithSigner("user"))
+
+	/*Gk
 
 	fmt.Println("Try to borrow as a concrete NFT collection type when collection holds string")
 	fmt.Println()
@@ -33,4 +35,33 @@ func main() {
 	fmt.Println("check type when empty")
 	fmt.Println()
 	o.Script("test6", overflow.WithArg("user", "user"))
+
+	fmt.Println("check type when has universal collection")
+	fmt.Println()
+	o.Script("test7", overflow.WithArg("user", "user"))
+
+	fmt.Println("try to load and destory if string")
+	fmt.Println()
+	o.Script("test8", overflow.WithArg("user", "user"))
+
+	fmt.Println("try to borrow using anyResource with string panics")
+	fmt.Println()
+	o.Script("test9", overflow.WithArg("user", "user"))
+
+	fmt.Println("try to borrow using anyResource with another resource")
+	fmt.Println()
+	o.Script("test10", overflow.WithArg("user", "user"))
+
+	fmt.Println("try to borrow using anyResource with nothing stored")
+	fmt.Println()
+	o.Script("test11", overflow.WithArg("user", "user"))
+
+	fmt.Println("provider path test with interface impl")
+	fmt.Println()
+	o.Script("test12", overflow.WithArg("user", "user"))
+
+	fmt.Println("provider path test with concrete impl")
+	fmt.Println()
+	o.Script("test13", overflow.WithArg("user", "user"))
+	*/
 }

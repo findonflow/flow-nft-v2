@@ -18,7 +18,6 @@ access(all) fun main(user:Address): [String]{
     let collection <- UniversalCollection.createEmptyCollection(identifier: "foo", type: ExampleNFT.getType())
 
     messages.append(collection.getType().identifier)
-    //if we save something here it will not work
     signer.storage.save(<- collection, to:collectionData.storagePath)
 
     // Return early if the account already has a collection
