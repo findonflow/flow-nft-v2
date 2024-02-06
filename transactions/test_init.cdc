@@ -16,14 +16,10 @@ transaction {
         let preCap =signer.capabilities.storage.issue<auth(NonFungibleToken.Withdraw) &ExampleNFT.Collection>(collectionData.storagePath)
         log("cap ".concat(preCap.id.toString()))
 
-        let pre2Cap =signer.capabilities.storage.issue<auth(NonFungibleToken.Withdraw) &ExampleNFT.Collection>(collectionData.storagePath)
-        log("cap ".concat(pre2Cap.id.toString()))
-
-
         //this only shows the first cap
         signer.capabilities.storage.forEachController(forPath: collectionData.storagePath,fun(scc: &StorageCapabilityController): Bool {
             log("pre ".concat(scc.capabilityID.toString()).concat(" ").concat(scc.target().toString()))
-            return false
+            return true
         })
 
 
@@ -56,19 +52,8 @@ transaction {
 
         signer.capabilities.storage.forEachController(forPath: collectionData.storagePath,fun(scc: &StorageCapabilityController): Bool {
             log("post ".concat(scc.capabilityID.toString()).concat(" ").concat(scc.target().toString()))
-            return false
+            return true
         })
     }
 }
-/*
-*this is the log this prints
 
-Cadence log: "cap 3"
-Cadence log: "cap 4"
-Cadence log: "pre 3 /storage/cadenceExampleNFTCollection"
-Cadence log: "issued providerCap 5"
-Cadence log: "find provider second time"
-Cadence log: "Capability<auth(A.f8d6e0586b0a20c7.NonFungibleToken.Withdraw)&{A.f8d6e0586b0a20c7.NonFungibleToken.Collection}>"
-Cadence log: "is provider cap"
-Cadence log: "post 3 /storage/cadenceExampleNFTCollection"
-*/
