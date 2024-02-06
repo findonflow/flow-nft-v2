@@ -5,12 +5,15 @@ import "NonFungibleToken"
 import "ExampleNFT"
 import "MetadataViews"
 
+
 transaction {
 
     prepare(signer: auth(BorrowValue, IssueStorageCapabilityController, PublishCapability, SaveValue, UnpublishCapability) &Account) {
-        
+
         let collectionData = ExampleNFT.resolveContractView(resourceType: nil, viewType: Type<MetadataViews.NFTCollectionData>()) as! MetadataViews.NFTCollectionData?
-            ?? panic("ViewResolver does not resolve NFTCollectionData view")
+        ?? panic("ViewResolver does not resolve NFTCollectionData view")
+
+        signer.storage.save("foo", to:collectionData.storagePath)
 
         // Return early if the account already has a collection
         if signer.storage.borrow<&ExampleNFT.Collection>(from: collectionData.storagePath) != nil {
@@ -20,6 +23,7 @@ transaction {
         // Create a new empty collection
         let collection <- ExampleNFT.createEmptyCollection(nftType: Type<@ExampleNFT.NFT>())
 
+        //this will not work if the storage has something else there already
         // save it to the account
         signer.storage.save(<-collection, to: collectionData.storagePath)
 
