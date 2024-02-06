@@ -60,3 +60,15 @@ transaction {
         })
     }
 }
+/*
+*this is the log this prints
+
+Cadence log: "cap 3"
+Cadence log: "cap 4"
+Cadence log: "pre 3 /storage/cadenceExampleNFTCollection"
+Cadence log: "issued providerCap 5"
+Cadence log: "find provider second time"
+Cadence log: "Capability<auth(A.f8d6e0586b0a20c7.NonFungibleToken.Withdraw)&{A.f8d6e0586b0a20c7.NonFungibleToken.Collection}>"
+Cadence log: "is provider cap"
+Cadence log: "post 3 /storage/cadenceExampleNFTCollection"
+*/
