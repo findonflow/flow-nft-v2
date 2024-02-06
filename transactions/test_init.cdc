@@ -2,6 +2,17 @@ import "NonFungibleToken"
 import "ExampleNFT"
 import "MetadataViews"
 
+/*
+* Running this on a brand new user produce this
+Cadence log: "cap 3"
+Cadence log: "pre 3 /storage/cadenceExampleNFTCollection"
+Cadence log: "issued providerCap 4"
+Cadence log: "find provider second time"
+Cadence log: "Capability<auth(A.f8d6e0586b0a20c7.NonFungibleToken.Withdraw)&{A.f8d6e0586b0a20c7.NonFungibleToken.Collection}>"
+Cadence log: "is provider cap"
+Cadence log: "post 3 /storage/cadenceExampleNFTCollection"
+Cadence log: "post 4 /storage/cadenceExampleNFTCollection"
+*/
 transaction {
 
     prepare(signer: auth(Storage, Capabilities, BorrowValue, IssueStorageCapabilityController, PublishCapability, SaveValue, UnpublishCapability) &Account) {
@@ -12,11 +23,10 @@ transaction {
         let collection <- collectionData.createEmptyCollection()
         signer.storage.save(<-collection, to: collectionData.storagePath)
 
-        //this is what will be in storage after  we have migrated a public path
+        //this is what will be in storage after  we have migrated a private path
         let preCap =signer.capabilities.storage.issue<auth(NonFungibleToken.Withdraw) &ExampleNFT.Collection>(collectionData.storagePath)
         log("cap ".concat(preCap.id.toString()))
 
-        //this only shows the first cap
         signer.capabilities.storage.forEachController(forPath: collectionData.storagePath,fun(scc: &StorageCapabilityController): Bool {
             log("pre ".concat(scc.capabilityID.toString()).concat(" ").concat(scc.target().toString()))
             return true
@@ -47,6 +57,10 @@ transaction {
                 log("is provider cap")
             } else {
                 log("is notprovider cap")
+                let providerCap=signer.capabilities.storage.issue<auth(NonFungibleToken.Withdraw) &{NonFungibleToken.Collection}>(collectionData.storagePath)
+                log("issued providerCap ".concat(providerCap.id.toString()))
+                //we save it to storage to memoize it
+                signer.storage.save(providerCap, to: providerStoragePath)
             }
         }
 
