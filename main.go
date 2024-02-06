@@ -61,5 +61,10 @@ func main() {
 	fmt.Println("provider path test with concrete impl")
 	fmt.Println()
 	o.Script("test13", overflow.WithArg("user", "user"))
-	o.Tx("test_init", overflow.WithSigner("user"))
+
+	fmt.Println("provider path has string")
+	fmt.Println()
+	o.Script("test14", overflow.WithArg("user", "user"))
+
+	// o.Tx("test_init", overflow.WithSigner("user"))
 }

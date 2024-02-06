@@ -32,7 +32,11 @@ access(all) fun main(user:Address): [String]{
     let providerIdentifier = storagePathIdentifer.concat("Provider")
     let providerStoragePath = StoragePath(identifier: providerIdentifier)!
 
-    //afaik we cannot have more types here on the Capability when we borrow it.
+
+    //we save a string here to try to mess things up
+    signer.storage.save("foo", to:providerStoragePath)
+
+    //this will now panic if this stores anything but a cap
     let existingProvider= signer.storage.borrow<&Capability>(from: providerStoragePath) 
     if existingProvider==nil{
         let providerCap=signer.capabilities.storage.issue<auth(NonFungibleToken.Withdraw) &{NonFungibleToken.Collection}>(collectionData.storagePath)
