@@ -1,15 +1,13 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/bjartek/overflow"
 )
 
 func main() {
 	o := overflow.Overflow(overflow.WithReturnErrors(), overflow.WithLogFull())
-
-	o.Tx("test_init", overflow.WithSigner("user"))
-
-	/*Gk
 
 	fmt.Println("Try to borrow as a concrete NFT collection type when collection holds string")
 	fmt.Println()
@@ -63,5 +61,5 @@ func main() {
 	fmt.Println("provider path test with concrete impl")
 	fmt.Println()
 	o.Script("test13", overflow.WithArg("user", "user"))
-	*/
+	o.Tx("test_init", overflow.WithSigner("user"))
 }
