@@ -20,6 +20,7 @@ transaction {
         log("cap ".concat(pre2Cap.id.toString()))
 
 
+        //this only shows the first cap
         signer.capabilities.storage.forEachController(forPath: collectionData.storagePath,fun(scc: &StorageCapabilityController): Bool {
             log("pre ".concat(scc.capabilityID.toString()).concat(" ").concat(scc.target().toString()))
             return false
