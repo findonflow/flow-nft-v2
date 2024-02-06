@@ -24,6 +24,7 @@ access(all) fun main(user:Address): [String]{
     if signer.storage.check<&{NonFungibleToken.Collection}>(from: collectionData.storagePath) {
         messages.append("is an nft collection")
     }else {
+        //this check fails here, and to me that is not what i expect
         messages.append("cannot check that this implements interface {NonFungibleToken.Collection}")
     }
     return messages

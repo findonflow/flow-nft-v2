@@ -16,6 +16,7 @@ access(all) fun main(user:Address): [String]{
     let collectionData = ExampleNFT.resolveContractView(resourceType: nil, viewType: Type<MetadataViews.NFTCollectionData>()) as! MetadataViews.NFTCollectionData? ?? panic("ViewResolver does not resolve NFTCollectionData view")
 
 
+    //this also works
     let col= signer.storage.borrow<&AnyResource>(from: collectionData.storagePath) as? &{NonFungibleToken.Collection}?
     if col != nil {
         messages.append("borrow using anyResource and then cast as restricted type")

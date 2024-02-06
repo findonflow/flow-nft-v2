@@ -21,6 +21,7 @@ access(all) fun main(user:Address): [String]{
     // Return early if the account already has a collection
     let storedType =signer.storage.type(at: collectionData.storagePath)!
     if storedType.isSubtype(of: Type<@{NonFungibleToken.Collection}>()) {
+        //this works, you need to fint the type and check that it is a subtype of what we want
         messages.append("is nft collection")
     }
 

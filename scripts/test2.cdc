@@ -18,7 +18,7 @@ access(all) fun main(user:Address): String{
     signer.storage.save(<- collection, to:collectionData.storagePath)
 
 
-    // Return early if the account already has a collection
+    //This will panic
     if signer.storage.borrow<&ExampleNFT.Collection>(from: collectionData.storagePath) != nil {
         return  "ok"
     }

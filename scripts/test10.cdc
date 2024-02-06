@@ -19,6 +19,7 @@ access(all) fun main(user:Address): [String]{
     signer.storage.save(<- collection, to:collectionData.storagePath)
 
 
+    //this works
     let col= signer.storage.borrow<&AnyResource>(from: collectionData.storagePath) as? &{NonFungibleToken.Collection}?
     if col != nil {
         messages.append("borrow using anyResource and then cast as restricted type")

@@ -20,8 +20,6 @@ access(all) fun main(user:Address): [String]{
     signer.storage.save("foo", to:collectionData.storagePath)
 
 
-
-    // Return early if the account already has a collection
     if let storedType =signer.storage.type(at: collectionData.storagePath) {
         if storedType.isSubtype(of: Type<@{NonFungibleToken.Collection}>()) {
             messages.append("store something that is NFT collection")
@@ -29,6 +27,7 @@ access(all) fun main(user:Address): [String]{
 
         if storedType != Type<&ExampleNFT.Collection>() {
 
+            //this also works as intended, if we want to be absolutely sure we need to check the type to unload/destory properly
             if storedType.isSubtype(of: Type<@AnyResource>()) {
                 destroy  signer.storage.load<@AnyResource>(from: collectionData.storagePath)
             } else {
@@ -36,8 +35,6 @@ access(all) fun main(user:Address): [String]{
             }
             let collection <- ExampleNFT.createEmptyCollection(nftType: Type<@ExampleNFT.NFT>())
 
-            //this will not work if the storage has something else there already
-            // save it to the account
             signer.storage.save(<-collection, to: collectionData.storagePath)
             messages.append("we could load and destory and add new collection")
         } 

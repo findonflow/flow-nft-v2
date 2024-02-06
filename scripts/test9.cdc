@@ -18,8 +18,7 @@ access(all) fun main(user:Address): [String]{
 
     signer.storage.save("foo", to:collectionData.storagePath)
 
-    // Return early if the account already has a collection
-
+    //this will panic as the thing we are trying to load is not a resource
     let col= signer.storage.borrow<&AnyResource>(from: collectionData.storagePath) as? &{NonFungibleToken.Collection}?
     if col == nil {
         messages.append("could not borrow string as AnyResource")

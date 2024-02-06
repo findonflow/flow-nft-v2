@@ -21,6 +21,7 @@ access(all) fun main(user:Address): [String]{
             messages.append("is nft collection")
         }
     } else {
+        //since we do not store anything here this works 
         messages.append("does not store anything")
     }
 

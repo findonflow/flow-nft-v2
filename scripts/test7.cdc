@@ -33,10 +33,9 @@ access(all) fun main(user:Address): [String]{
 
             let collection <- ExampleNFT.createEmptyCollection(nftType: Type<@ExampleNFT.NFT>())
 
-            //this will not work if the storage has something else there already
-            // save it to the account
             signer.storage.save(<-collection, to: collectionData.storagePath)
             messages.append("we could load and destory and add new collection")
+            //this works as expected we get here
         } 
     }
     return messages
