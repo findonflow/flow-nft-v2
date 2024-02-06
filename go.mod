@@ -1,6 +1,8 @@
 module github.com/findonflow/flow-nft-v2
 
-go 1.21.6
+go 1.21
+
+require github.com/bjartek/overflow v1.14.1-0.20240201172206-df28bd63430b
 
 require (
 	cloud.google.com/go/compute v1.23.1 // indirect
@@ -17,7 +19,6 @@ require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bits-and-blooms/bitset v1.7.0 // indirect
-	github.com/bjartek/overflow v1.14.1-0.20240201172206-df28bd63430b // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.2.1 // indirect
 	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.2 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
